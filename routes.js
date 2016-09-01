@@ -3,10 +3,23 @@ let invitations = require('./controllers/invitations');
 
 router.get('token', '/token', ctx => {
   ctx.body = {
-    token: require('jsonwebtoken').sign({},  'shared-secret')
+    token: require('jsonwebtoken').sign({}, require('./config').sharedSecret)
   };
 });
 
-router.get('clients', '/clients', invitations.getAll);
+router.get('token', '/token/merchant', ctx => {
+  ctx.body = {
+    token: require('jsonwebtoken').sign({claim: 'merchant'}, require('./config').sharedSecret)
+  };
+});
+
+router.get('/clients', (ctx, next) => {
+  if (ctx.state.user.claim !== 'merchant') {
+    ctx.status = 401;
+    ctx.body = 'Merchant only';
+  } else {
+    return next();
+  }
+}, invitations.getAll);
 
 module.exports = router;
