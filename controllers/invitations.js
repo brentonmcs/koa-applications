@@ -1,5 +1,7 @@
+const db = require('../db');
+
 module.exports = {
-  getAll: ctx => {
-    ctx.body = 'Hello World!';
+  getAll: async ctx => {
+    ctx.body = await db.getCollection('patients').find({merchantId: ctx.state.user.sub});
   }
 };

@@ -24,11 +24,8 @@ app.use(async function (ctx, next) {
   await next();
 });
 
-const mongoose = require('mongoose');
-mongoose.connect(require('./config').database);
-mongoose.connection.on('error', () => {
-  console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
-});
+const db = require('./db');
 
+db.connect('mongodb://localhost:27017/mydatabase');
 app.use(jwt({ secret: config.sharedSecret }).unless({ path: [/^\/token/] }));
 app.use(router.routes()).use(router.allowedMethods()).listen(3000);

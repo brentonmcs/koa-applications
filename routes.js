@@ -1,5 +1,5 @@
-let router = require('koa-router')();
-let invitations = require('./controllers/invitations');
+const router = require('koa-router')();
+const invitations = require('./controllers/invitations');
 
 router.get('token', '/token', ctx => {
   ctx.body = {
@@ -9,7 +9,7 @@ router.get('token', '/token', ctx => {
 
 router.get('token', '/token/merchant', ctx => {
   ctx.body = {
-    token: require('jsonwebtoken').sign({claim: 'merchant'}, require('./config').sharedSecret)
+    token: require('jsonwebtoken').sign({claim: 'merchant', 'sub': 123}, require('./config').sharedSecret)
   };
 });
 
