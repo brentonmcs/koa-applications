@@ -1,0 +1,23 @@
+# Support ES2016 features
+parser: babel-eslint
+
+extends: standard
+
+plugins: [
+  "babel"
+]
+
+rules:
+  arrow-parens: 0
+  babel/arrow-parens: [2, "as-needed"]
+  generator-star-spacing: 0
+  babel/generator-star-spacing: 1
+  eqeqeq: 0
+  no-return-assign: 0 # fails for arrow functions
+  no-var: 2
+  semi: [2, always]
+  space-before-function-paren: [2, never]
+  yoda: 0
+  arrow-spacing: 2
+  dot-location: [2, "property"]
+  prefer-arrow-callback: 2
